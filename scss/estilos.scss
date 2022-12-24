@@ -1,17 +1,11 @@
-*{
-  margin: 0px;
-  padding: 0px;
-}
 
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300&display=swap');
 
 body {
     background-color: black;
     font-family: 'Inknut Antiqua', serif;
     max-width: 1600px;  
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300&display=swap');
-
 video::-webkit-media-controls {
     display: none;
   }
@@ -43,8 +37,11 @@ header {
   box-sizing: border-box;
 }
 p { 
-  color: rgb(189, 180, 170);
+  color: white; important:  !important;
 }
+h2 {	
+  margin-top: 3px;
+  }
 
 
 

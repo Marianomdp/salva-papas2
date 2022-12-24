@@ -1,28 +1,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300&display=swap");
 body {
   background-color: black;
-  font-family: 'Inknut Antiqua', serif;
+  font-family: "Inknut Antiqua", serif;
   max-width: 1600px; }
 
 video::-webkit-media-controls {
   display: none; }
 
 .video-hero {
-  background: tomato;
+  background: black;
   width: 100%;
   height: 95vh;
+  margin: 2px 2px;
   object-fit: cover; }
 
 .video-hero__cortinilla {
   background: rgba(0, 0, 0, 0.7);
   height: 100vh;
   position: absolute;
-  margin: auto;
+  margin: 2px 2px;
   width: 100%;
-  top: 0; }
-
-#contactus {
-  margin: auto; }
+  top: 0;
+  left: 0; }
 
 img#dibujos {
   margin: auto;

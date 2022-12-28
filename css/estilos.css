@@ -1,8 +1,22 @@
 @import url("https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300&display=swap");
+h1, h2, h3, h4, h5, h6, p, span {
+  color: rgba(192, 192, 192, 0.877); }
+
+@media only screen and (min-width: 2000px) {
+  h1 {
+    font-size: 2vw; }
+  h2 {
+    font-size: 1vw; }
+  h3 {
+    font-size: 1vw; }
+  p {
+    font-size: 1vw; } }
+
 body {
   background-color: black;
   font-family: "Inknut Antiqua", serif;
-  max-width: 100vw; }
+  margin: auto;
+  max-width: 1600px; }
 
 video::-webkit-media-controls {
   display: none; }
@@ -29,23 +43,9 @@ img {
   max-width: 25vw; }
 
 .dibujos {
-  max-width: 25vw;
+  max-width: 40vw;
   margin: auto;
   margin: 12px; }
 
 header {
   box-sizing: border-box; }
-
-@media only screen and (min-width: 1200px) {
-  h1 {
-    font-size: 3vw; }
-  h2 {
-    font-size: 2vw; }
-  h3 {
-    font-size: 1vw; }
-  p {
-    font-size: 1vw; } }
-
-@media only screen and (max-width: 1000px) {
-  .dibujos img {
-    max-width: 35vw; } }

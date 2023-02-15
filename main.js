@@ -1,4 +1,6 @@
-let nombre = prompt("ingresa tu Nombre");
+//PRIMER ENTREGA ///////////////////////////////////////////////////////////////
+
+/*let nombre = prompt("ingresa tu Nombre");
 let saludo = (`Bienvenido ${nombre}`);
 alert(saludo);
 
@@ -44,5 +46,42 @@ function calculadora (NumeroUno, NumeroDos, operacion) {
 }}
 
 alert(`El resultado de la operación es ${calculadora(NumeroUno, NumeroDos, operacion)}`);
+*/
 
-    
+//SEGUNDA ENTREGA ///////////////////////////////////////////////////////////////
+
+const nombres = ["corporativos", "ferias", "festivales", "masivos"];
+const datosEnServicios = ["nombre", "categoria", "clase", "valor"];
+const servicios = [
+{nombre: "corporativos", categoria: "evento", clase: "A", valor : 10000},
+{nombre: "ferias", categoria: "evento", clase: "A", valor : 8000},
+{nombre: "festivales", categoria: "evento", clase: "A", valor : 12000},
+{nombre: "masivos", categoria: "evento", clase: "A", valor : 100000},
+ ];
+
+let opcion = "";
+ while (!nombres.includes(opcion)) {
+   opcion = prompt("Escoja una opcion entre las siguientes", nombres);
+ if (!nombres.includes(opcion)) {
+     alert("Por favor seleccione una opcion valida");
+   }
+ }
+ alert(`perfecto la opcion indicada es ${opcion}`);
+
+let opcion2 = "";
+ while (!datosEnServicios.includes(opcion2)) {
+    opcion2 = prompt(`¿Que dato de ${opcion} desea conocer ?`, datosEnServicios);
+ if (!datosEnServicios.includes(opcion2)) {
+    alert("Por favor seleccione una opcion valida");
+}
+}
+
+let resultado = "";
+
+servicios.forEach((servicio) => {
+    if (servicio.nombre === opcion) {
+        resultado = servicio[opcion2];
+    }
+});
+
+alert(`El/a ${opcion2}, de ${opcion} es: ${resultado}`);

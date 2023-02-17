@@ -59,6 +59,11 @@ const servicios = [
 {nombre: "masivos", categoria: "evento", clase: "A", valor : 100000},
  ];
 
+let masEconomico = servicios.filter(evento => evento.valor <= 8000)
+
+console.log(masEconomico);
+
+
 let opcion = "";
  while (!nombres.includes(opcion)) {
    opcion = prompt("Escoja una opcion entre las siguientes", nombres);
@@ -85,3 +90,5 @@ servicios.forEach((servicio) => {
 });
 
 alert(`El/a ${opcion2}, de ${opcion} es: ${resultado}`);
+
+

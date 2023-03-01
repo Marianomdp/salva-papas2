@@ -63,32 +63,34 @@ let masEconomico = servicios.filter(evento => evento.valor <= 8000)
 
 console.log(masEconomico);
 
+const boton = document.getElementById('boton');
 
-let opcion = "";
- while (!nombres.includes(opcion)) {
-   opcion = prompt("Escoja una opcion entre las siguientes", nombres);
- if (!nombres.includes(opcion)) {
-     alert("Por favor seleccione una opcion valida");
-   }
- }
- alert(`perfecto la opcion indicada es ${opcion}`);
-
-let opcion2 = "";
- while (!datosEnServicios.includes(opcion2)) {
-    opcion2 = prompt(`¿Que dato de ${opcion} desea conocer ?`, datosEnServicios);
- if (!datosEnServicios.includes(opcion2)) {
-    alert("Por favor seleccione una opcion valida");
-}
-}
-
-let resultado = "";
-
-servicios.forEach((servicio) => {
-    if (servicio.nombre === opcion) {
-        resultado = servicio[opcion2];
+boton.addEventListener('click', () => {
+    let opcion = "";
+    while (!nombres.includes(opcion)) {
+    opcion = prompt("¿Que tipo de evento quiere cotizar?", nombres);
+    if (!nombres.includes(opcion)) {
+        alert("Por favor seleccione una opcion valida");
+        }
     }
-});
 
-alert(`El/a ${opcion2}, de ${opcion} es: ${resultado}`);
+    let opcion2 = parseInt(prompt(`Para cuántas personas es su evento ${opcion}?`));
+    let resultado;
+    
+    while (isNaN(opcion2) || opcion2 < 0 || opcion2 > 100000000) {
+      opcion2 = parseInt(prompt(`Opción inválida. Por favor, ingrese un número válido para la cantidad de personas.`));
+    }
+    
+    if (opcion2 >= 0 && opcion2 <= 100) {
+      resultado = "$10.000";
+    } else if (opcion2 >= 101 && opcion2 <= 500) {
+      resultado = "$45.000";
+    } else if (opcion2 >= 501 && opcion2 <= 100000000) {
+      resultado = "$80.000";
+    }
+    
+    alert(`El valor de su evento ${opcion} para ${opcion2} personas es de aproximadamente ${resultado}`);
+    
+});
 
 

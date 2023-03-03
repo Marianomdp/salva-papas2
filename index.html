@@ -8,6 +8,7 @@
     <meta name="description" content="sitio oficial de salva papa entertainment">
     <meta name="keywords" content="produciones entretenimiento eventos fiestas festivales">
     <meta name="theme-color" content="#317EFB"/>
+    <meta property="og:image" content="./logo/salva-papas-high-resolution-logo-white-on-black-background.png">
     <title>SALVA PAPAS</title>
     <link rel="icon" type="image/x-icon" href="./logo/salva-papas-website-favicon-black.png">
     <link rel="apple-touch-icon" href="./logo/salva-papas-website-favicon-black.png">
@@ -108,15 +109,33 @@
 
     <!-- PROYECTOS -->
   <hr class="mt-5 mb-5 text-white">
-  <section class="container-fluid mt-3 text-center">
-    <button class="font-weight-bold" id="boton">COTIZA TU EVENTO</button>
-    <br></br>
-    <div class="row">
-      <div  class="col-sm-6 bg-dark text-white p-3"><h3>FESTIVAL GASTRONOMICO MAREA PUERTO</h3></div>
-      <div class="col-sm-6 bg-dark text-white p-3"><h3>FERIAS GASTRONOMICAS DE BSAS</h3></div>
-      <div class="col-sm-6 bg-dark text-white p-3"><h3>FESTIVAL PLAYA Y LEÑA</h3></div>
-      <div class="col-sm-6 bg-dark text-white p-3"><h3>NAVIDAD EN EL ALDREY</h3></div>
+  <section class="container-fluid mt-3 text-center row">
+    <h1 class="mt-5 mb-3 text-white" data-aos="zoom-in">COTIZADOR DE EVENTOS</h1>
+    <div class="col">
+    
+      <form>
+        <div class="form-group">
+          <label for="tipo-evento">¿Qué tipo de evento desea cotizar?</label>
+          <br></br>
+          <input type="text" class="form-control" id="tipo-evento" placeholder="escribe una opcion entre: corporativos, ferias, festivales, masivos">
+        </div>
+        <br></br>
+
+        <div class="form-group">
+          <label for="cantidad-personas">¿Para cuántas personas es su evento?</label>
+          <br></br>
+          <input type="number" class="form-control" id="cantidad-personas" placeholder="Ingrese solo numeros">
+        </div>
+        <br></br>
+        <button type="submit" class="font-weight-bold btn-primary " id="boton">COTIZAR</button>
+        <br></br>
+      </form>
     </div>
+    <br></br>
+    <div class="col">
+      <div id="contenedorCotizaciones">
+      </div>
+    
   </section>
 
   <!-- FOOTER -->
@@ -126,12 +145,12 @@
       <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
         <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
       </a>
-      <span class="mb-3 mb-md-0 text-muted">© 2022 Salva papas, entertainment</span>
+      <span class="mb-3 mb-md-0 text-muted">© 2022 Salva papas, entertainment. Powered by PHILOSOLUTIONS.</span>
     </div>
 
   </footer>
   
-      
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
   </script>    
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

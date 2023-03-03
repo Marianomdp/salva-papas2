@@ -49,7 +49,7 @@ alert(`El resultado de la operación es ${calculadora(NumeroUno, NumeroDos, oper
 */
 
 //SEGUNDA ENTREGA ///////////////////////////////////////////////////////////////
-
+/*
 const nombres = ["corporativos", "ferias", "festivales", "masivos"];
 const datosEnServicios = ["nombre", "categoria", "clase", "valor"];
 const servicios = [
@@ -63,34 +63,150 @@ let masEconomico = servicios.filter(evento => evento.valor <= 8000)
 
 console.log(masEconomico);
 
+
+
 const boton = document.getElementById('boton');
 
-boton.addEventListener('click', () => {
-    let opcion = "";
-    while (!nombres.includes(opcion)) {
-    opcion = prompt("¿Que tipo de evento quiere cotizar?", nombres);
-    if (!nombres.includes(opcion)) {
-        alert("Por favor seleccione una opcion valida");
-        }
-    }
 
-    let opcion2 = parseInt(prompt(`Para cuántas personas es su evento ${opcion}?`));
-    let resultado;
-    
-    while (isNaN(opcion2) || opcion2 < 0 || opcion2 > 100000000) {
-      opcion2 = parseInt(prompt(`Opción inválida. Por favor, ingrese un número válido para la cantidad de personas.`));
-    }
-    
-    if (opcion2 >= 0 && opcion2 <= 100) {
-      resultado = "$10.000";
-    } else if (opcion2 >= 101 && opcion2 <= 500) {
-      resultado = "$45.000";
-    } else if (opcion2 >= 501 && opcion2 <= 100000000) {
-      resultado = "$80.000";
-    }
-    
-    alert(`El valor de su evento ${opcion} para ${opcion2} personas es de aproximadamente ${resultado}`);
+
+
+boton.addEventListener('click', () => {
+    const primeraEntrada = document.getElementById("tipo-evento");
+    const primera = primeraEntradaInput.value;
+
+    const segundaEntrada = document.getElementById("cantidad-personas");
+    const segunda = segundaEntradaInput.value;    
+
+    let resultado 
+      if (primera == "corporativos") {
+        if (segunda >= 0 && segunda <= 100) {
+          resultado = 10000;
+        } else if (segunda >= 101 && segunda <= 500) {
+          resultado = 20000;
+        } else if (segunda >= 501 && segunda <= 1000000) {
+          resultado = 50000;
+        }
+      } else if (primera == "ferias") {
+        if (segunda >= 0 && segunda <= 100) {
+          resultado = 8000;
+        } else if (segunda >= 101 && segunda <= 500) {
+          resultado = 18000;
+        } else if (segunda >= 501 && segunda <= 1000000) {
+          resultado = 40000;
+        }
+      } else if (primera == "festivales") {
+        if (segunda >= 0 && segunda <= 100) {
+          resultado = 7000;
+        } else if (segunda >= 101 && segundas <= 500) {
+          resultado = 15000;
+        } else if (segunda >= 501 && segunda <= 1000000) {
+          resultado = 35000;
+        }
+      } else if (primera == "masivos") {
+        if (segunda >= 0 && segunda <= 100) {
+          resultado = 100000;
+        } else if (segunda >= 101 && segunda <= 500) {
+          resultado = 200000;
+        } else if (segunda >= 501 && segunda <= 1000000) {
+          resultado = 500000;
+        }
+      }
+
+const valores = {Evento:primera, Cantidad: segunda};
+localStorage.setItem("cotizacion", JSON.stringify(valores));
+
+  alert(`La cotización es: $${resultado}`);
     
 });
+*/
+//TERCERA ENTREGA////////////////
+//arreglos de cotizaciones
+const cotizaciones = {
+    corporativos: [
+      { personas: 100, valor: 10000 },
+      { personas: 500, valor: 20000 },
+      { personas: 1000000, valor: 50000 }
+    ],
+    ferias: [
+      { personas: 100, valor: 8000 },
+      { personas: 500, valor: 18000 },
+      { personas: 1000000, valor: 40000 }
+    ],
+    festivales: [
+      { personas: 100, valor: 7000 },
+      { personas: 500, valor: 15000 },
+      { personas: 1000000, valor: 35000 }
+    ],
+    masivos: [
+      { personas: 100, valor: 100000 },
+      { personas: 500, valor: 200000 },
+      { personas: 1000000, valor: 500000 }
+    ]
+  };
+  
+ //traigo el boton 
+let botton = document.getElementById("boton");
+const contenedorCotizaciones = document.getElementById("contenedor-cotizaciones");
+
+//funcion para obtener la cotizacion con los parametros indicados
+const obtenerCotizacion = (categoria, cantidadPersonas) => {
+  const cotizacionCategoria = cotizaciones[categoria];
+  const cotizacion = cotizacionCategoria.find(
+    c => cantidadPersonas <= c.personas
+  );
+  return cotizacion ? cotizacion.valor : "No hay cotización disponible";
+};
+
+//genera la funcion cuando da click
+botton.addEventListener('click', () => {
+  
+  const primeraEntradaInput = document.getElementById("tipo-evento");
+  const primera = primeraEntradaInput.value;
+
+  const segundaEntradaInput = document.getElementById("cantidad-personas");
+  const segunda = parseInt(segundaEntradaInput.value);
+
+  
+  if (isNaN(segunda)) {
+    alert("Ingrese un número válido para la cantidad de personas");
+    return;
+  }
+
+  //muestra el resultado en un alert de sweet alert2
+  const resultado = obtenerCotizacion(primera, segunda);
+  Swal.fire({title:`La cotización es: $${resultado}`,
+  timer:2500}
+  );
+
+  // crea variable para guardar los datos de esa cotizacion
+  let cotizacion = {
+    evento: primera,
+    cantidad: segunda,
+    valor: resultado
+  };
+
+  //guardo cotizacion en el storage
+  
+  let cotizacionesGuardadas = JSON.parse(localStorage.getItem("cotizaciones")) || [];
+
+  cotizacionesGuardadas.push(cotizacion);
+
+  localStorage.setItem("cotizaciones", JSON.stringify(cotizacionesGuardadas));
 
 
+  primeraEntradaInput.value = "";
+  segundaEntradaInput.value = "";
+
+ let contenedorCotizaciones = document.getElementById("contenedorCotizaciones");   
+  contenedorCotizaciones.innerHTML = "";
+  cotizacionesGuardadas.forEach((cotizacion, indice) => {
+    contenedorCotizaciones.innerHTML += 
+      `<div class="cotizacion">
+         <p>Cotización ${indice + 1}:</p>
+         <p>Evento: ${cotizacion.evento}</p>
+         <p>Cantidad: ${cotizacion.cantidad}</p>
+         <p>Valor: ${cotizacion.valor}</p>
+       </div>`;
+  });
+    
+  });

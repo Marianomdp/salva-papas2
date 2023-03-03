@@ -174,9 +174,12 @@ botton.addEventListener('click', () => {
 
   //muestra el resultado en un alert de sweet alert2
   const resultado = obtenerCotizacion(primera, segunda);
-  Swal.fire({title:`La cotización es: $${resultado}`,
-  timer:2500}
-  );
+
+  Swal.fire(
+    'Excelente!',
+    `La cotización es: $${resultado}`,
+    'success',
+    );
 
   // crea variable para guardar los datos de esa cotizacion
   let cotizacion = {

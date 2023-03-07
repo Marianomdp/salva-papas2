@@ -160,20 +160,18 @@ const obtenerCotizacion = (categoria, cantidadPersonas) => {
 //genera la funcion cuando da click
 botton.addEventListener('click', (event) => {
   event.preventDefault();
-  
+
   let primeraEntradaInput = document.getElementById("tipo-evento");
   let primera = primeraEntradaInput.value;
 
   let segundaEntradaInput = document.getElementById("cantidad-personas");
   let segunda = parseInt(segundaEntradaInput.value);
 
-  
   if (isNaN(segunda)) {
     alert("Ingrese un número válido para la cantidad de personas");
     return;
   }
 
-  //muestra el resultado en un alert de sweet alert2
   const resultado = obtenerCotizacion(primera, segunda);
 
   Swal.fire({
@@ -194,7 +192,7 @@ botton.addEventListener('click', (event) => {
 
   localStorage.setItem("cotizaciones", JSON.stringify(cotizacionesGuardadas));
 
-  let contenedorCotizaciones = document.getElementById("contenedorCotizaciones");   
+  let contenedorCotizaciones = document.getElementById("contenedor-cotizaciones"); // Cambia aquí
   contenedorCotizaciones.innerHTML = "";
   cotizacionesGuardadas.forEach((cotizacion, indice) => {
     const cotizacionHTML = `

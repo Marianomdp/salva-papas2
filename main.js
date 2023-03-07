@@ -160,11 +160,11 @@ const obtenerCotizacion = (categoria, cantidadPersonas) => {
 //genera la funcion cuando da click
 botton.addEventListener('click', () => {
   
-  const primeraEntradaInput = document.getElementById("tipo-evento");
-  const primera = primeraEntradaInput.value;
+  let primeraEntradaInput = document.getElementById("tipo-evento");
+  let primera = primeraEntradaInput.value;
 
-  const segundaEntradaInput = document.getElementById("cantidad-personas");
-  const segunda = parseInt(segundaEntradaInput.value);
+  let segundaEntradaInput = document.getElementById("cantidad-personas");
+  let segunda = parseInt(segundaEntradaInput.value);
 
   
   if (isNaN(segunda)) {
@@ -175,26 +175,26 @@ botton.addEventListener('click', () => {
   //muestra el resultado en un alert de sweet alert2
   const resultado = obtenerCotizacion(primera, segunda);
 
-  Swal.fire(
-    'Excelente!',
-    `La cotización es: $${resultado}`,
-    'success',
-    );
+  Swal.fire({
+    title: '¡Excelente!',
+    text: `La cotización es: $${resultado}`,
+    icon: 'success',
+    timer: 3000, 
+  });
 
-  // crea variable para guardar los datos de esa cotizacion
-  let cotizacion = {
+  const cotizacion = {
     evento: primera,
     cantidad: segunda,
     valor: resultado
   };
 
   //guardo cotizacion en el storage
+
+  localStorage.setItem("cotizaciones", JSON.stringify(cotizacion));
   
   let cotizacionesGuardadas = JSON.parse(localStorage.getItem("cotizaciones")) || [];
 
   cotizacionesGuardadas.push(cotizacion);
-
-  localStorage.setItem("cotizaciones", JSON.stringify(cotizacionesGuardadas));
 
 
   primeraEntradaInput.value = "";

@@ -146,7 +146,7 @@ const cotizaciones = {
   
  //traigo el boton 
 let botton = document.getElementById("boton");
-const contenedorCotizaciones = document.getElementById("contenedor-cotizaciones");
+const contenedorCotizaciones = document.getElementById("contenedorCotizaciones");
 
 //funcion para obtener la cotizacion con los parametros indicados
 const obtenerCotizacion = (categoria, cantidadPersonas) => {
@@ -158,7 +158,8 @@ const obtenerCotizacion = (categoria, cantidadPersonas) => {
 };
 
 //genera la funcion cuando da click
-botton.addEventListener('click', () => {
+botton.addEventListener('click', (event) => {
+  event.preventDefault();
   
   let primeraEntradaInput = document.getElementById("tipo-evento");
   let primera = primeraEntradaInput.value;

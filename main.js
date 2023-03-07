@@ -188,28 +188,21 @@ botton.addEventListener('click', () => {
     valor: resultado
   };
 
-  //guardo cotizacion en el storage
-
-  localStorage.setItem("cotizaciones", JSON.stringify(cotizacion));
-  
   let cotizacionesGuardadas = JSON.parse(localStorage.getItem("cotizaciones")) || [];
-
   cotizacionesGuardadas.push(cotizacion);
 
+  localStorage.setItem("cotizaciones", JSON.stringify(cotizacionesGuardadas));
 
-  primeraEntradaInput.value = "";
-  segundaEntradaInput.value = "";
-
- let contenedorCotizaciones = document.getElementById("contenedorCotizaciones");   
+  let contenedorCotizaciones = document.getElementById("contenedorCotizaciones");   
   contenedorCotizaciones.innerHTML = "";
   cotizacionesGuardadas.forEach((cotizacion, indice) => {
-    contenedorCotizaciones.innerHTML += 
-      `<div class="cotizacion">
-         <p>Cotización ${indice + 1}:</p>
+    const cotizacionHTML = `
+      <div class="cotizacion">
+         <p>Cotización ${indice + 1}</p>
          <p>Evento: ${cotizacion.evento}</p>
          <p>Cantidad: ${cotizacion.cantidad}</p>
          <p>Valor: ${cotizacion.valor}</p>
        </div>`;
-  });
-    
-  });
+    contenedorCotizaciones.innerHTML += cotizacionHTML;
+  });    
+});

@@ -202,7 +202,7 @@ cotizacionesGuardadas.forEach((cotizacion, indice) => {
        <p>Cantidad: ${cotizacion.cantidad}</p>
        <p>Valor: ${cotizacion.valor}</p>
      </div>`;
-     
+
   contenedorCotizaciones.innerHTML += cotizacionHTML;
   function compararCotizaciones() {
     const cotizacionesArr = Object.values(cotizaciones);
@@ -253,7 +253,7 @@ cotizacionesGuardadas.forEach((cotizacion, indice) => {
   const botonComparar = document.getElementById("boton-comparar");
   
   // Agregar el evento para generar la comparación al hacer clic en el botón
-  botonComparar.addEventListener("click", compararCotizaciones);
+  botonComparar.addEventListener("click", compararCotizaciones, event.preventDefault());
 
 });    
 });

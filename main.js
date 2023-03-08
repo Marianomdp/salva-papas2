@@ -122,86 +122,86 @@ localStorage.setItem("cotizacion", JSON.stringify(valores));
 //TERCERA ENTREGA////////////////
 //arreglos de cotizaciones
 const cotizaciones = {
-    corporativos: [
-      { personas: 100, valor: 10000 },
-      { personas: 500, valor: 20000 },
-      { personas: 1000000, valor: 50000 }
-    ],
-    ferias: [
-      { personas: 100, valor: 8000 },
-      { personas: 500, valor: 18000 },
-      { personas: 1000000, valor: 40000 }
-    ],
-    festivales: [
-      { personas: 100, valor: 7000 },
-      { personas: 500, valor: 15000 },
-      { personas: 1000000, valor: 35000 }
-    ],
-    masivos: [
-      { personas: 100, valor: 100000 },
-      { personas: 500, valor: 200000 },
-      { personas: 1000000, valor: 500000 }
-    ]
-  };
-  
- //traigo el boton 
+  corporativos: [
+    { personas: 100, valor: 10000 },
+    { personas: 500, valor: 20000 },
+    { personas: 1000000, valor: 50000 }
+  ],
+  ferias: [
+    { personas: 100, valor: 8000 },
+    { personas: 500, valor: 18000 },
+    { personas: 1000000, valor: 40000 }
+  ],
+  festivales: [
+    { personas: 100, valor: 7000 },
+    { personas: 500, valor: 15000 },
+    { personas: 1000000, valor: 35000 }
+  ],
+  masivos: [
+    { personas: 100, valor: 100000 },
+    { personas: 500, valor: 200000 },
+    { personas: 1000000, valor: 500000 }
+  ]
+};
+
+//traigo el boton 
 let botton = document.getElementById("boton");
 const contenedorCotizaciones = document.getElementById("contenedorCotizaciones");
 
 //funcion para obtener la cotizacion con los parametros indicados
 const obtenerCotizacion = (categoria, cantidadPersonas) => {
-  const cotizacionCategoria = cotizaciones[categoria];
-  const cotizacion = cotizacionCategoria.find(
-    c => cantidadPersonas <= c.personas
-  );
-  return cotizacion ? cotizacion.valor : "No hay cotización disponible";
+const cotizacionCategoria = cotizaciones[categoria];
+const cotizacion = cotizacionCategoria.find(
+  c => cantidadPersonas <= c.personas
+);
+return cotizacion ? cotizacion.valor : "No hay cotización disponible";
 };
 
 //genera la funcion cuando da click
 botton.addEventListener('click', (event) => {
-  event.preventDefault();
+event.preventDefault();
 
-  let primeraEntradaInput = document.getElementById("tipo-evento");
-  let primera = primeraEntradaInput.value;
+let primeraEntradaInput = document.getElementById("tipo-evento");
+let primera = primeraEntradaInput.value;
 
-  let segundaEntradaInput = document.getElementById("cantidad-personas");
-  let segunda = parseInt(segundaEntradaInput.value);
+let segundaEntradaInput = document.getElementById("cantidad-personas");
+let segunda = parseInt(segundaEntradaInput.value);
 
-  if (isNaN(segunda)) {
-    alert("Ingrese un número válido para la cantidad de personas");
-    return;
-  }
+if (isNaN(segunda)) {
+  alert("Ingrese un número válido para la cantidad de personas");
+  return;
+}
 
-  const resultado = obtenerCotizacion(primera, segunda);
+const resultado = obtenerCotizacion(primera, segunda);
 
-  Swal.fire({
-    title: '¡Excelente!',
-    text: `La cotización es: $${resultado}`,
-    icon: 'success',
-    timer: 3000, 
-  });
+Swal.fire({
+  title: '¡Excelente!',
+  text: `La cotización es: $${resultado}`,
+  icon: 'success',
+  timer: 3000, 
+});
 
-  const cotizacion = {
-    evento: primera,
-    cantidad: segunda,
-    valor: resultado
-  };
+const cotizacion = {
+  evento: primera,
+  cantidad: segunda,
+  valor: resultado
+};
 
-  let cotizacionesGuardadas = JSON.parse(localStorage.getItem("cotizaciones")) || [];
-  contenedor-cotizaciones.push(cotizacion);
+let cotizacionesGuardadas = JSON.parse(localStorage.getItem("cotizaciones")) || [];
+cotizacionesGuardadas.push(cotizacion);
 
-  localStorage.setItem("cotizaciones", JSON.stringify(cotizacionesGuardadas));
+localStorage.setItem("cotizaciones", JSON.stringify(cotizacionesGuardadas));
 
-  let contenedorCotizaciones = document.getElementById("contenedor-cotizaciones"); // Cambia aquí
-  contenedorCotizaciones.innerHTML = "";
-  cotizacionesGuardadas.forEach((cotizacion, indice) => {
-    const cotizacionHTML = `
-      <div class="cotizacion">
-         <p>Cotización ${indice + 1}</p>
-         <p>Evento: ${cotizacion.evento}</p>
-         <p>Cantidad: ${cotizacion.cantidad}</p>
-         <p>Valor: ${cotizacion.valor}</p>
-       </div>`;
-    contenedorCotizaciones.innerHTML += cotizacionHTML;
-  });    
+let contenedorCotizaciones = document.getElementById("contenedor-cotizaciones"); // Cambia aquí
+contenedorCotizaciones.innerHTML = "";
+cotizacionesGuardadas.forEach((cotizacion, indice) => {
+  const cotizacionHTML = `
+    <div class="cotizacion">
+       <p>Cotización ${indice + 1}</p>
+       <p>Evento: ${cotizacion.evento}</p>
+       <p>Cantidad: ${cotizacion.cantidad}</p>
+       <p>Valor: ${cotizacion.valor}</p>
+     </div>`;
+  contenedorCotizaciones.innerHTML += cotizacionHTML;
+});    
 });

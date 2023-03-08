@@ -196,7 +196,7 @@ let contenedorCotizaciones = document.getElementById("contenedor-cotizaciones");
 contenedorCotizaciones.innerHTML = "";
 cotizacionesGuardadas.forEach((cotizacion, indice) => {
   const cotizacionHTML = `
-    <div class="cotizacion">
+    <div class="cotizacion border-top">
        <p>Cotización ${indice + 1}</p>
        <p>Evento: ${cotizacion.evento}</p>
        <p>Cantidad: ${cotizacion.cantidad}</p>

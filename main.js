@@ -119,7 +119,7 @@ localStorage.setItem("cotizacion", JSON.stringify(valores));
     
 });
 */
-//TERCERA ENTREGA////////////////
+/////////////////////////////////////////////////TERCERA ENTREGA////////////////
 //arreglos de cotizaciones
 const cotizaciones = {
   corporativos: [
@@ -157,7 +157,7 @@ const cotizacion = cotizacionCategoria.find(
 return cotizacion ? cotizacion.valor : "No hay cotización disponible";
 };
 
-//genera la funcion cuando da click
+//genera la funcion cuando da clic
 botton.addEventListener('click', (event) => {
 event.preventDefault();
 
@@ -223,11 +223,11 @@ cotizacionesGuardadas.forEach((cotizacion, indice) => {
       }
     }
   
-    // Eliminar el HTML existente
+    // Eliminar el HTML de cotizaciones
     const contenedorCotizaciones = document.getElementById("contenedor-cotizaciones");
     contenedorCotizaciones.innerHTML = "";
   
-    // Crear el nuevo HTML con los datos de la comparación
+    //nuevo HTML con los datos de la comparación
     const cotizacionMasBajaHTML = `
       <div class="cotizacion border-top">
         <p>Cotización más baja</p>
@@ -249,7 +249,7 @@ cotizacionesGuardadas.forEach((cotizacion, indice) => {
     contenedorCotizaciones.innerHTML = cotizacionMasBajaHTML + cotizacionMasAltaHTML;
   }
   
-  // Obtener el botón para generar la comparación
+  // Obtener el boton para generar la comparación
   const botonComparar = document.getElementById("boton-comparar");
   
   // Agregar el evento al boton para generar la comparación 

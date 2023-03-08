@@ -252,8 +252,10 @@ cotizacionesGuardadas.forEach((cotizacion, indice) => {
   // Obtener el botón para generar la comparación
   const botonComparar = document.getElementById("boton-comparar");
   
-  // Agregar el evento para generar la comparación al hacer clic en el botón
-  botonComparar.addEventListener("click", compararCotizaciones, event.preventDefault());
-
+  // Agregar el evento al boton para generar la comparación 
+  botonComparar.addEventListener("click", function(event) {
+    event.preventDefault();
+    compararCotizaciones();
+  });
 });    
 });

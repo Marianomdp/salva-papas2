@@ -202,6 +202,58 @@ cotizacionesGuardadas.forEach((cotizacion, indice) => {
        <p>Cantidad: ${cotizacion.cantidad}</p>
        <p>Valor: ${cotizacion.valor}</p>
      </div>`;
+     
   contenedorCotizaciones.innerHTML += cotizacionHTML;
+  function compararCotizaciones() {
+    const cotizacionesArr = Object.values(cotizaciones);
+    let cotizacionMasBaja = cotizacionesArr[0][0];
+    let cotizacionMasAlta = cotizacionesArr[0][0];
+  
+    for (let i = 0; i < cotizacionesArr.length; i++) {
+      for (let j = 0; j < cotizacionesArr[i].length; j++) {
+        const cotizacionActual = cotizacionesArr[i][j];
+  
+        if (cotizacionActual.valor < cotizacionMasBaja.valor) {
+          cotizacionMasBaja = cotizacionActual;
+        }
+  
+        if (cotizacionActual.valor > cotizacionMasAlta.valor) {
+          cotizacionMasAlta = cotizacionActual;
+        }
+      }
+    }
+  
+    // Eliminar el HTML existente
+    const contenedorCotizaciones = document.getElementById("contenedor-cotizaciones");
+    contenedorCotizaciones.innerHTML = "";
+  
+    // Crear el nuevo HTML con los datos de la comparación
+    const cotizacionMasBajaHTML = `
+      <div class="cotizacion border-top">
+        <p>Cotización más baja</p>
+        <p>Evento: ${cotizacionMasBaja.evento}</p>
+        <p>Cantidad: ${cotizacionMasBaja.personas}</p>
+        <p>Valor: ${cotizacionMasBaja.valor}</p>
+      </div>
+    `;
+    
+    const cotizacionMasAltaHTML = `
+      <div class="cotizacion border-top">
+        <p>Cotización más alta</p>
+        <p>Evento: ${cotizacionMasAlta.evento}</p>
+        <p>Cantidad: ${cotizacionMasAlta.personas}</p>
+        <p>Valor: ${cotizacionMasAlta.valor}</p>
+      </div>
+    `;
+    
+    contenedorCotizaciones.innerHTML = cotizacionMasBajaHTML + cotizacionMasAltaHTML;
+  }
+  
+  // Obtener el botón para generar la comparación
+  const botonComparar = document.getElementById("boton-comparar");
+  
+  // Agregar el evento para generar la comparación al hacer clic en el botón
+  botonComparar.addEventListener("click", compararCotizaciones);
+
 });    
 });

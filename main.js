@@ -188,7 +188,7 @@ botton.addEventListener('click', (event) => {
   };
 
   let cotizacionesGuardadas = JSON.parse(localStorage.getItem("cotizaciones")) || [];
-  cotizacionesGuardadas.push(cotizacion);
+  contenedor-cotizaciones.push(cotizacion);
 
   localStorage.setItem("cotizaciones", JSON.stringify(cotizacionesGuardadas));
 

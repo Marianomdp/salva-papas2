@@ -144,6 +144,15 @@ const cotizaciones = {
   ]
 };
 
+fetch('http://api.coinlayer.com/envivo?access_key=add3e955d453e97b0931d9a6d3d783eb')
+  .then(response => response.json())
+  .then(data => {
+    const misDatos = document.getElementById('cryptoLive');
+    misDatos.innerHTML = JSON.stringify(data);
+  })
+  .catch(error => console.error(error));
+
+
 //traigo el boton 
 let botton = document.getElementById("boton");
 const contenedorCotizaciones = document.getElementById("contenedorCotizaciones");

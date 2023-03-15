@@ -121,107 +121,100 @@ localStorage.setItem("cotizacion", JSON.stringify(valores));
 */
 /////////////////////////////////////////////////TERCERA ENTREGA////////////////
 //arreglos de cotizaciones
-const cotizaciones = {
-  corporativos: [
-    { personas: 100, valor: 10000 },
-    { personas: 500, valor: 20000 },
-    { personas: 1000000, valor: 50000 }
-  ],
-  ferias: [
-    { personas: 100, valor: 8000 },
-    { personas: 500, valor: 18000 },
-    { personas: 1000000, valor: 40000 }
-  ],
-  festivales: [
-    { personas: 100, valor: 7000 },
-    { personas: 500, valor: 15000 },
-    { personas: 1000000, valor: 35000 }
-  ],
-  masivos: [
-    { personas: 100, valor: 100000 },
-    { personas: 500, valor: 200000 },
-    { personas: 1000000, valor: 500000 }
-  ]
-};
+  const cotizaciones = {
+    corporativos: [
+      { personas: 100, valor: 10000 },
+      { personas: 500, valor: 20000 },
+      { personas: 1000000, valor: 50000 }
+    ],
+    ferias: [
+      { personas: 100, valor: 8000 },
+      { personas: 500, valor: 18000 },
+      { personas: 1000000, valor: 40000 }
+    ],
+    festivales: [
+      { personas: 100, valor: 7000 },
+      { personas: 500, valor: 15000 },
+      { personas: 1000000, valor: 35000 }
+    ],
+    masivos: [
+      { personas: 100, valor: 100000 },
+      { personas: 500, valor: 200000 },
+      { personas: 1000000, valor: 500000 }
+    ]
+  };
 
-fetch('http://api.coinlayer.com/envivo?access_key=add3e955d453e97b0931d9a6d3d783eb')
-  .then(response => response.json())
-  .then(data => {
-    const misDatos = document.getElementById('cryptoLive');
-    misDatos.innerHTML = JSON.stringify(data);
-  })
-  .catch(error => console.error(error));
+  //traigo el boton 
+  let botton = document.getElementById("boton");
+  const contenedorCotizaciones = document.getElementById("contenedor-cotizaciones");
 
+  //funcion para obtener la cotizacion con los parametros indicados
+  const obtenerCotizacion = (categoria, cantidadPersonas) => {
+  const cotizacionCategoria = cotizaciones[categoria];
+  const cotizacion = cotizacionCategoria.find(
+    c => cantidadPersonas <= c.personas
+  );
+  return cotizacion ? cotizacion.valor : "No hay cotización disponible";
+  };
 
-//traigo el boton 
-let botton = document.getElementById("boton");
-const contenedorCotizaciones = document.getElementById("contenedorCotizaciones");
+  //genera la funcion cuando da clic
+  botton.addEventListener('click', (event) => {
+  event.preventDefault();
 
-//funcion para obtener la cotizacion con los parametros indicados
-const obtenerCotizacion = (categoria, cantidadPersonas) => {
-const cotizacionCategoria = cotizaciones[categoria];
-const cotizacion = cotizacionCategoria.find(
-  c => cantidadPersonas <= c.personas
-);
-return cotizacion ? cotizacion.valor : "No hay cotización disponible";
-};
+  let primeraEntradaInput = document.getElementById("tipo-evento");
+  let primera = primeraEntradaInput.value;
 
-//genera la funcion cuando da clic
-botton.addEventListener('click', (event) => {
-event.preventDefault();
+  let segundaEntradaInput = document.getElementById("cantidad-personas");
+  let segunda = parseInt(segundaEntradaInput.value);
 
-let primeraEntradaInput = document.getElementById("tipo-evento");
-let primera = primeraEntradaInput.value;
+  if (isNaN(segunda)) {
+    alert("Ingrese un número válido para la cantidad de personas");
+    return;
+  }
 
-let segundaEntradaInput = document.getElementById("cantidad-personas");
-let segunda = parseInt(segundaEntradaInput.value);
+  const resultado = obtenerCotizacion(primera, segunda);
 
-if (isNaN(segunda)) {
-  alert("Ingrese un número válido para la cantidad de personas");
-  return;
-}
+  Swal.fire({
+    title: '¡Excelente!',
+    text: `La cotización es: $${resultado}`,
+    icon: 'success',
+    timer: 3000, 
+  });
 
-const resultado = obtenerCotizacion(primera, segunda);
+  const cotizacion = {
+    evento: primera,
+    cantidad: segunda,
+    valor: resultado
+  };
 
-Swal.fire({
-  title: '¡Excelente!',
-  text: `La cotización es: $${resultado}`,
-  icon: 'success',
-  timer: 3000, 
-});
+  const cotizacionesGuardadas = JSON.parse(localStorage.getItem("cotizaciones")) || [];
+  cotizacionesGuardadas.push(cotizacion);
 
-const cotizacion = {
-  evento: primera,
-  cantidad: segunda,
-  valor: resultado
-};
+  localStorage.setItem("cotizaciones", JSON.stringify(cotizacionesGuardadas));
 
-let cotizacionesGuardadas = JSON.parse(localStorage.getItem("cotizaciones")) || [];
-cotizacionesGuardadas.push(cotizacion);
+  let contenedorCotizaciones = document.getElementById("contenedor-cotizaciones"); 
+  contenedorCotizaciones.innerHTML = "";
+  cotizacionesGuardadas.forEach((cotizacion, indice) => {
+    const cotizacionHTML = `
+      <div class="cotizacion border-top">
+        <p>Cotización ${indice + 1}</p>
+        <p>Evento: ${cotizacion.evento}</p>
+        <p>Cantidad: ${cotizacion.cantidad}</p>
+        <p>Valor: ${cotizacion.valor}</p>
+      </div>`;
 
-localStorage.setItem("cotizaciones", JSON.stringify(cotizacionesGuardadas));
+    contenedorCotizaciones.innerHTML += cotizacionHTML;
 
-let contenedorCotizaciones = document.getElementById("contenedor-cotizaciones"); // Cambia aquí
-contenedorCotizaciones.innerHTML = "";
-cotizacionesGuardadas.forEach((cotizacion, indice) => {
-  const cotizacionHTML = `
-    <div class="cotizacion border-top">
-       <p>Cotización ${indice + 1}</p>
-       <p>Evento: ${cotizacion.evento}</p>
-       <p>Cantidad: ${cotizacion.cantidad}</p>
-       <p>Valor: ${cotizacion.valor}</p>
-     </div>`;
+    });
 
-  contenedorCotizaciones.innerHTML += cotizacionHTML;
+  });
   function compararCotizaciones() {
     const cotizacionesArr = Object.values(cotizaciones);
     let cotizacionMasBaja = cotizacionesArr[0][0];
     let cotizacionMasAlta = cotizacionesArr[0][0];
   
-    for (let i = 0; i < cotizacionesArr.length; i++) {
-      for (let j = 0; j < cotizacionesArr[i].length; j++) {
-        const cotizacionActual = cotizacionesArr[i][j];
-  
+    cotizacionesArr.forEach((cotizacionesEvento) => {
+      cotizacionesEvento.forEach((cotizacionActual) => {
         if (cotizacionActual.valor < cotizacionMasBaja.valor) {
           cotizacionMasBaja = cotizacionActual;
         }
@@ -229,42 +222,60 @@ cotizacionesGuardadas.forEach((cotizacion, indice) => {
         if (cotizacionActual.valor > cotizacionMasAlta.valor) {
           cotizacionMasAlta = cotizacionActual;
         }
-      }
+      });
+    });
+    
+      // Eliminar el HTML de cotizaciones
+      const contenedorCotizaciones = document.getElementById("contenedor-cotizaciones");
+      contenedorCotizaciones.innerHTML = "";
+    
+      //nuevo HTML con los datos de la comparación
+      const cotizacionMasBajaHTML = `
+        <div class="cotizacion border-top">
+          <p>Cotización más baja</p>
+          <p>Evento: ${cotizacionMasBaja.evento}</p>
+          <p>Cantidad: ${cotizacionMasBaja.personas}</p>
+          <p>Valor: ${cotizacionMasBaja.valor}</p>
+        </div>
+      `;
+      
+      const cotizacionMasAltaHTML = `
+        <div class="cotizacion border-top">
+          <p>Cotización más alta</p>
+          <p>Evento: ${cotizacionMasAlta.evento}</p>
+          <p>Cantidad: ${cotizacionMasAlta.personas}</p>
+          <p>Valor: ${cotizacionMasAlta.valor}</p>
+        </div>
+      `;
+      
+      contenedorCotizaciones.innerHTML = cotizacionMasBajaHTML + cotizacionMasAltaHTML;
     }
-  
-    // Eliminar el HTML de cotizaciones
-    const contenedorCotizaciones = document.getElementById("contenedor-cotizaciones");
-    contenedorCotizaciones.innerHTML = "";
-  
-    //nuevo HTML con los datos de la comparación
-    const cotizacionMasBajaHTML = `
-      <div class="cotizacion border-top">
-        <p>Cotización más baja</p>
-        <p>Evento: ${cotizacionMasBaja.evento}</p>
-        <p>Cantidad: ${cotizacionMasBaja.personas}</p>
-        <p>Valor: ${cotizacionMasBaja.valor}</p>
-      </div>
-    `;
     
-    const cotizacionMasAltaHTML = `
-      <div class="cotizacion border-top">
-        <p>Cotización más alta</p>
-        <p>Evento: ${cotizacionMasAlta.evento}</p>
-        <p>Cantidad: ${cotizacionMasAlta.personas}</p>
-        <p>Valor: ${cotizacionMasAlta.valor}</p>
-      </div>
-    `;
+    // Obtener el boton para generar la comparación
+    const botonComparar = document.getElementById("boton-comparar");
     
-    contenedorCotizaciones.innerHTML = cotizacionMasBajaHTML + cotizacionMasAltaHTML;
-  }
+    // Agregar el evento al boton para generar la comparación 
+    botonComparar.addEventListener("click", function(event) {
+      event.preventDefault();
+      compararCotizaciones();
+    
+      const climaDiv = document.getElementById('clima');
+      climaDiv.innerHTML = `La temperatura actual es ${temperatura} grados Celsius`;
+
+
+      const options = {
+        method: 'GET',
+        headers: {
+          'X-RapidAPI-Key': 'e5311481e2msh375423a9ccd8b23p103d49jsn14cb3c38427c',
+          'X-RapidAPI-Host': 'meteostat.p.rapidapi.com'
+        }
+      };
+    
+      
+      fetch('https://meteostat.p.rapidapi.com/stations/monthly?station=10637&start=2020-01-01&end=2020-12-31', options)
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(err => console.error(err));
+
+  });    
   
-  // Obtener el boton para generar la comparación
-  const botonComparar = document.getElementById("boton-comparar");
-  
-  // Agregar el evento al boton para generar la comparación 
-  botonComparar.addEventListener("click", function(event) {
-    event.preventDefault();
-    compararCotizaciones();
-  });
-});    
-});

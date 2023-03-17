@@ -123,21 +123,25 @@ localStorage.setItem("cotizacion", JSON.stringify(valores));
 //arreglos de cotizaciones
   const cotizaciones = {
     corporativos: [
+      { evento: "corporativos" },
       { personas: 100, valor: 10000 },
       { personas: 500, valor: 20000 },
       { personas: 1000000, valor: 50000 }
     ],
     ferias: [
+      { evento: "ferias" },
       { personas: 100, valor: 8000 },
       { personas: 500, valor: 18000 },
       { personas: 1000000, valor: 40000 }
     ],
     festivales: [
+      { evento: "festivales" },
       { personas: 100, valor: 7000 },
       { personas: 500, valor: 15000 },
       { personas: 1000000, valor: 35000 }
     ],
     masivos: [
+      { evento: "masivos" },
       { personas: 100, valor: 100000 },
       { personas: 500, valor: 200000 },
       { personas: 1000000, valor: 500000 }
@@ -210,17 +214,19 @@ localStorage.setItem("cotizacion", JSON.stringify(valores));
   });
   function compararCotizaciones() {
     const cotizacionesArr = Object.values(cotizaciones);
-    let cotizacionMasBaja = cotizacionesArr[0][0];
-    let cotizacionMasAlta = cotizacionesArr[0][0];
+    let cotizacionMasBaja = cotizacionesArr[0][1];
+    let cotizacionMasAlta = cotizacionesArr[0][1];
   
     cotizacionesArr.forEach((cotizacionesEvento) => {
       cotizacionesEvento.forEach((cotizacionActual) => {
-        if (cotizacionActual.valor < cotizacionMasBaja.valor) {
-          cotizacionMasBaja = cotizacionActual;
-        }
+        if (typeof cotizacionActual.valor === 'number') {
+          if (cotizacionActual.valor < cotizacionMasBaja.valor) {
+            cotizacionMasBaja = cotizacionActual;
+          }
   
-        if (cotizacionActual.valor > cotizacionMasAlta.valor) {
-          cotizacionMasAlta = cotizacionActual;
+          if (cotizacionActual.valor > cotizacionMasAlta.valor) {
+            cotizacionMasAlta = cotizacionActual;
+          }
         }
       });
     });
@@ -259,23 +265,6 @@ localStorage.setItem("cotizacion", JSON.stringify(valores));
       event.preventDefault();
       compararCotizaciones();
     
-      const climaDiv = document.getElementById('clima');
-      climaDiv.innerHTML = `La temperatura actual es ${temperatura} grados Celsius`;
-
-
-      const options = {
-        method: 'GET',
-        headers: {
-          'X-RapidAPI-Key': 'e5311481e2msh375423a9ccd8b23p103d49jsn14cb3c38427c',
-          'X-RapidAPI-Host': 'meteostat.p.rapidapi.com'
-        }
-      };
-    
-      
-      fetch('https://meteostat.p.rapidapi.com/stations/monthly?station=10637&start=2020-01-01&end=2020-12-31', options)
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err));
 
   });    
   

@@ -15,7 +15,7 @@ form.addEventListener('submit', (e) => {
     //console.log(nameCity.value);
     //console.log(nameCountry.value);
 })
-
+//la subscripcion a openweathermap es gratuita puede tener algun error, por lo pronto viene funcionando bien.
 function callAPI(city, country){
     const apiId = 'bacb1d634894cb0a31784012d02fb68c';
     const url = `http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${apiId}`;
